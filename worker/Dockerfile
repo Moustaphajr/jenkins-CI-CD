@@ -1,5 +1,5 @@
-# Image de construction .NET SDK
-FROM --platform=${BUILDPLATFORM} mcr.microsoft.com/dotnet/sdk:7.0 AS build
+# Utilisation du SDK .NET pour la construction
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 
 WORKDIR /source
 COPY *.csproj . 
