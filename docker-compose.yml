@@ -29,18 +29,15 @@ services:
       - front-tier
       - back-tier
 
+  
   worker:
     build:
       context: ./worker
-      args:
-        - TARGETPLATFORM=linux/amd64
-    platform: linux/arm64/v8
-    container_name: worker-app
-    restart: unless-stopped
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    volumes:
-      - ./worker-data:/app/data  # Volume pour la persistance
+    depends_on:
+      redis:
+        condition: service_healthy 
+      db:
+        condition: service_healthy 
     networks:
       - back-tier
 
