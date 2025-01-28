@@ -29,18 +29,18 @@ services:
       - front-tier
       - back-tier
 
-  
   worker:
     build:
-      context: ./worker
-    depends_on:
-      redis:
-        condition: service_healthy 
-      db:
-        condition: service_healthy 
+      context: .
+      platform: linux/amd64  # On spécifie ici la plateforme de build, ici x86_64 (amd64)
+    container_name: worker-app
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     networks:
       - back-tier
-
+  
+ 
   redis:
     image: redis:alpine
     healthcheck:
