@@ -32,11 +32,8 @@ services:
   worker:
     build:
       context: ./worker
-      platform: linux/amd64  
-    container_name: worker-app
-    restart: unless-stopped
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - "redis"
     networks:
       - back-tier
   

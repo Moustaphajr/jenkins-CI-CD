@@ -1,22 +1,10 @@
-# Utilise l'image SDK de .NET pour la construction
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM microsoft/dotnet:2.0.0-sdk
 
-WORKDIR /source
+WORKDIR /code
 
-# Copie les fichiers .csproj et restaure les dépendances
-COPY *.csproj .
-RUN dotnet restore
+ADD ./Worker /code/src/Worker
 
-# Copie tout le code source et construit l'application
-COPY . .
-RUN dotnet publish -c Release -o /app
+RUN dotnet restore -v minimal ./Worker \
+    && dotnet publish -c Release -o "./" "./Worker/" 
 
-# Crée une image plus légère pour l'exécution
-FROM mcr.microsoft.com/dotnet/runtime:7.0
-
-WORKDIR /app
-
-# Copie l'application publiée depuis l'image de build
-COPY --from=build /app .
-
-ENTRYPOINT ["dotnet", "Worker.dll"]
+CMD dotnet src/Worker/Worker.dll
