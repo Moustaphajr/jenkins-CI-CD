@@ -1,16 +1,15 @@
-version: '3.9'
+version: '3.10'
 
 services:
   vote:
     build: ./vote
+    image: moustaphajr80/vote:latest  # Ajoutez cette ligne
     depends_on:
       - redis
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 15s
       retries: 3
-    volumes:
-      - ./vote:/usr/local/app
     ports:
       - "8081:80"
     networks:
@@ -19,20 +18,19 @@ services:
 
   result:
     build: ./result
+    image: moustaphajr80/result:latest  # Ajoutez cette ligne
     depends_on:
       - db
-    volumes:
-      - ./result:/usr/local/app
     ports:
       - "8082:80"
     networks:
       - front-tier
       - back-tier
 
-  
   worker:
     build:
       context: ./worker
+    image: moustaphajr80/worker:latest  # Ajoutez cette ligne
     depends_on:
       redis:
         condition: service_healthy 
@@ -40,8 +38,7 @@ services:
         condition: service_healthy 
     networks:
       - back-tier
-      
- 
+
   redis:
     image: redis:alpine
     healthcheck:
