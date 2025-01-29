@@ -31,10 +31,13 @@ services:
 
   
   worker:
+    build:
+      context: ./worker
     depends_on:
-      - redis
-    volumes:
-      - ./worker:/usr/local/app
+      redis:
+        condition: service_healthy 
+      db:
+        condition: service_healthy 
     networks:
       - back-tier
       
