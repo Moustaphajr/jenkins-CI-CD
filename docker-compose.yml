@@ -29,8 +29,16 @@ services:
       - front-tier
       - back-tier
 
- 
   
+  worker:
+    build: ./worker
+    depends_on:
+      - redis
+    volumes:
+      - ./worker:/usr/local/app
+    networks:
+      - back-tier
+      
  
   redis:
     image: redis:alpine
