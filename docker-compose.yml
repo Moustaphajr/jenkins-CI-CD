@@ -31,7 +31,6 @@ services:
 
   
   worker:
-    build: ./worker
     depends_on:
       - redis
     volumes:
