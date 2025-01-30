@@ -1,9 +1,9 @@
-version: '3.10'
+version: '3.2'
 
 services:
   vote:
     build: ./vote
-    image: moustaph24/voting-app:latest
+    image: moustaph24/voting-app-vote:latest
     depends_on:
       - redis
     healthcheck:
@@ -18,7 +18,7 @@ services:
 
   result:
     build: ./result
-    image: moustaph24/voting-app:latest
+    image: moustaph24/voting-app-result:latest
     depends_on:
       - db
     ports:
