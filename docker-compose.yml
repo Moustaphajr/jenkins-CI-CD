@@ -18,7 +18,7 @@ services:
 
   result:
     build: ./result
-    image: moustapha24/voting-app:latest
+    image: moustaph24/voting-app:latest
     depends_on:
       - db
     ports:
@@ -29,13 +29,13 @@ services:
 
   worker:
     build:
-      image: moustaph24/voting-app:latest
       context: ./worker
+    image: moustaph24/voting-app:worker:latest  # Précise un nom différent pour éviter les conflits
     depends_on:
       redis:
-        condition: service_healthy 
+        condition: service_healthy
       db:
-        condition: service_healthy 
+        condition: service_healthy
     networks:
       - back-tier
 
