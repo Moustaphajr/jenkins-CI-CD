@@ -30,7 +30,7 @@ services:
   worker:
     build:
       context: ./worker
-    image: moustaph24/voting-app:worker:latest  # Précise un nom différent pour éviter les conflits
+    image: moustaph24/voting-app-worker:latest  # Nouveau nom d'image sans plusieurs ':'
     depends_on:
       redis:
         condition: service_healthy
