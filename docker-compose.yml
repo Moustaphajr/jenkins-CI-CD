@@ -3,6 +3,7 @@ version: '3.10'
 services:
   vote:
     build: ./vote
+    image: moustaph24/voting-app:latest
     depends_on:
       - redis
     healthcheck:
@@ -17,6 +18,7 @@ services:
 
   result:
     build: ./result
+    image: moustapha24/voting-app:latest
     depends_on:
       - db
     ports:
@@ -27,6 +29,7 @@ services:
 
   worker:
     build:
+      image: moustaph24/voting-app:latest
       context: ./worker
     depends_on:
       redis:
